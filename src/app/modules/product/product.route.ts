@@ -8,4 +8,11 @@ const router = express.Router();
 
 router.post('/create-product', ProductController.createProduct);
 
+// get all products route
+
+router.get('/', ProductController.getAllProducts);
+
+// get single product route
+router.get('/:productId', ProductController.getSingleProductFromDB);
+
 export const ProductRoutes = router;
