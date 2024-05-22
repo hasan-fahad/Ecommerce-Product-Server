@@ -55,8 +55,29 @@ const productSchema = new Schema<FProduct, ProductModel>({
     type: inventorySchema,
     required: true,
   },
-})
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+  
+});
+// Query Middleware
+productSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
+productSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+ // [ {$match: { isDeleted : {  $ne: : true}}}   ,{ '$match': { id: '123456' } } ]
+
+productSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
 // creating custom static method
 
 productSchema.statics.isUserExists = async function (name: string){

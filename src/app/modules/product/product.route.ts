@@ -6,7 +6,7 @@ const router = express.Router();
 
 // create single product route
 
-router.post('/create-product', ProductController.createProduct);
+router.post('/', ProductController.createProduct);
 
 // get all products route
 

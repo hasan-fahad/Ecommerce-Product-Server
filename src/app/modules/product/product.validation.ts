@@ -24,6 +24,7 @@ export const productValidationSchema = z.object({
   category: z.string(),
   tags: z.array(z.string()),
   variants: z.array(zodVariant), 
-  inventory: zodInventory
+  inventory: zodInventory,
+  isDeleted: z.boolean().optional().default(false),
 });
 

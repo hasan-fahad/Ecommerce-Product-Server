@@ -3,6 +3,7 @@
 import { Request, Response } from 'express'
 import { productValidationSchema } from './product.validation'
 import { ProductService } from './product.service'
+import { FAnyObject } from './product.interface'
 
 // Create product
 
@@ -29,18 +30,36 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const result = await ProductService.getAllProductsFromDB()
-    res.status(200).json({
-      success: true,
-      message: 'Products fetched succesfully!',
-      data: result,
-    })
-  } catch (error: any) {
-    res.status(500).json({
+    const { searchTerm } = req.query;
+
+    const find: FAnyObject = {};
+    if (searchTerm) {
+      find["$or"] = [
+        { name: new RegExp(searchTerm as string, "i") },
+        { description: new RegExp(searchTerm as string, "i") },
+      ];
+    }
+
+    const result = await ProductService.getAllProductsFromDB(find);
+
+    const response: FAnyObject = {
+      success: result.length > 0,
+      message:
+        result.length > 0
+          ? "Products fetched successfully!"
+          : "Product Not found",
+    };
+
+    if (result.length > 0) {
+      response.data = result;
+    }
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json({
       success: false,
-      message: error.message || 'something went wrong',
-      error: error,
-    })
+      message: "products not found",
+    });
   }
 }
 

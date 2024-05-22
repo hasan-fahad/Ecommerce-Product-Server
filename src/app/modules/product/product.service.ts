@@ -1,7 +1,7 @@
 // Product service
 
 import Product from './product.model'
-import FProduct from './product.interface'
+import FProduct, { FAnyObject } from './product.interface'
 
 // creating into DB
 
@@ -15,9 +15,15 @@ const createProductIntoDB = async (productData: FProduct) => {
 }
 
 // get all products DB
-const getAllProductsFromDB = async () => {
-  const Result = await Product.find()
-  return Result
+const getAllProductsFromDB = async (query: FAnyObject) => {
+   const Result = await Product.find(query);
+  // const Result2 = await Product.aggregate([{ $match: { id } }]);
+
+  // const Result = await ([
+  //   Product.find(query),
+  //   Product.aggregate([{ $match: {query} }])
+  // ]);
+  return Result;
 }
 
 //get single product from DB
@@ -39,7 +45,7 @@ const updateProductIntoDB = async (id: string, updateData: FProduct) => {
 
 // delete data
 const deleteProductFromDB = async (id: string) => {
-    const result = await Product.findByIdAndDelete(id);
+    const result = await Product.findByIdAndDelete({_id : id}, {isDeleted: true});
     return result;
   };
 export const ProductService = {

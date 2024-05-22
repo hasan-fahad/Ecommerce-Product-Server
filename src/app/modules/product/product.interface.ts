@@ -19,9 +19,13 @@ export type FInventory = {
   category: string
   tags: string[]
   variants: FVariant[]
-  inventory: FInventory
+  inventory: FInventory,
+  isDeleted: boolean;
 }
-
+// querry
+export interface FAnyObject {
+  [key: string]: any;
+}
 // for creating static
 export interface ProductModel extends Model<FProduct> {
     isProductExists(id: string): Promise<FProduct>
