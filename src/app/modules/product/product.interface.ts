@@ -24,7 +24,7 @@ type IProduct = {
 }
 // querry
 export interface IAnyObject {
-  [key: string]: any
+  [key: string]: any;
 }
 // for creating static
 export interface ProductModel extends Model<IProduct> {
