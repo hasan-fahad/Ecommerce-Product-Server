@@ -2,3 +2,5 @@
 
 To run from server.js, Need to write to the Terminal `npm run start:prod`</br>
 To run from the server.ts, Need to write to the Terminal `npm run start:dev`
+
+Live Server Link: https://ecommerce-product-server.vercel.app/
