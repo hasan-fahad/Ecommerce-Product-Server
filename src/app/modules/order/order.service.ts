@@ -40,10 +40,10 @@ const createOrderService = async (orderData: IOrder, res: Response) => {
     }
 
     //   check if the quantity is equal to available quantity
-    const isEqualQntt = productObj.inventory.quantity === orderData.quantity;
+    const isEqualQuantity = productObj.inventory.quantity === orderData.quantity;
 
-    //   update the isStock propertry
-    if (isEqualQntt) {
+    //   update the isStock property
+    if (isEqualQuantity) {
       await Product.findByIdAndUpdate(
         productId,
         { "inventory.inStock": false, "inventory.quantity": 0 },
