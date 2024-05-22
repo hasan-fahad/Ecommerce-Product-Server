@@ -5,7 +5,7 @@ import IOrder from "./order.interface";
 import Order from "./order.model";
 
 
-const createOrderService = async (orderData: IOrder, res: Response) => {
+const createOrderIntoDB = async (orderData: IOrder, res: Response) => {
   try {
     const productId = orderData.productId;
 
@@ -79,13 +79,13 @@ const createOrderService = async (orderData: IOrder, res: Response) => {
   }
 };
 
-const getAllOrderService = async (find: IAnyObject) => {
+const getAllOrderIntoDB = async (find: IAnyObject) => {
   const result = await Order.find(find);
   return result;
 };
 
 export const orderServices = {
-  createOrderService,
-  getAllOrderService,
+  createOrderIntoDB,
+  getAllOrderIntoDB,
 };
 
