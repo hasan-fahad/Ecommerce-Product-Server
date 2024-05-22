@@ -4,8 +4,8 @@ import { OrderController } from "./order.controller";
 const router = express.Router();
 
 // create single product
-router.post("/orders", OrderController.createOrderController );
+router.post("/", OrderController.createOrderController );
 // get all orders
-router.get("/orders", OrderController.getAllOrderController);
+router.get("/", OrderController.getAllOrderController);
 
 export const OrderRoutes = router;
