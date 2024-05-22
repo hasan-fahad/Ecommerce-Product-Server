@@ -23,7 +23,7 @@ type IProduct = {
   isDeleted: boolean
 }
 // querry
-export interface FAnyObject {
+export interface IAnyObject {
   [key: string]: any
 }
 // for creating static
@@ -31,4 +31,4 @@ export interface ProductModel extends Model<IProduct> {
   isProductExists(id: string): Promise<IProduct>
 }
 
-export default IProduct;
+export default IProduct

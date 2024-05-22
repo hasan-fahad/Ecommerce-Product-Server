@@ -1,7 +1,7 @@
 // Product service
 
 import Product from './product.model'
-import IProduct, { FAnyObject } from './product.interface'
+import IProduct, { IAnyObject } from './product.interface'
 
 // creating into DB
 
@@ -15,7 +15,7 @@ const createProductIntoDB = async (productData: IProduct) => {
 }
 
 // get all products DB
-const getAllProductsFromDB = async (query: FAnyObject) => {
+const getAllProductsFromDB = async (query: IAnyObject) => {
   const Result = await Product.find(query)
   // const Result2 = await Product.aggregate([{ $match: { id } }]);
 
