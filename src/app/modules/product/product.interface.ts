@@ -1,34 +1,34 @@
 //create type or interface
 
-import { Model } from "mongoose"
+import { Model } from 'mongoose'
 
-export type FVariant = {
+export type IVariant = {
   type: string
   value: string
 }
 
-export type FInventory = {
+export type IInventory = {
   quantity: number
   inStock: boolean
 }
 
- type FProduct = {
+type IProduct = {
   name: string
   description: string
   price: number
   category: string
   tags: string[]
-  variants: FVariant[]
-  inventory: FInventory,
-  isDeleted: boolean;
+  variants: IVariant[]
+  inventory: IInventory
+  isDeleted: boolean
 }
 // querry
 export interface FAnyObject {
-  [key: string]: any;
+  [key: string]: any
 }
 // for creating static
-export interface ProductModel extends Model<FProduct> {
-    isProductExists(id: string): Promise<FProduct>
+export interface ProductModel extends Model<IProduct> {
+  isProductExists(id: string): Promise<IProduct>
 }
 
-export default FProduct;
+export default IProduct;

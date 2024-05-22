@@ -1,11 +1,15 @@
 //create a schema for students
 
 import { model, Schema } from 'mongoose'
-import FProduct, { FInventory, FVariant, ProductModel } from './product.interface'
+import IProduct, {
+  IInventory,
+  IVariant,
+  ProductModel,
+} from './product.interface'
 
 // Variants schema
 
-const variantSchema = new Schema<FVariant>({
+const variantSchema = new Schema<IVariant>({
   type: {
     type: String,
     required: true,
@@ -18,7 +22,7 @@ const variantSchema = new Schema<FVariant>({
 
 // Inventory schema
 
-const inventorySchema = new Schema<FInventory>({
+const inventorySchema = new Schema<IInventory>({
   quantity: {
     type: Number,
     required: true,
@@ -29,7 +33,7 @@ const inventorySchema = new Schema<FInventory>({
   },
 })
 
-const productSchema = new Schema<FProduct, ProductModel>({
+const productSchema = new Schema<IProduct, ProductModel>({
   name: {
     type: String,
     required: true,
@@ -59,33 +63,31 @@ const productSchema = new Schema<FProduct, ProductModel>({
     type: Boolean,
     default: false,
   },
-  
-});
+})
 // Query Middleware
 productSchema.pre('find', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
+  this.find({ isDeleted: { $ne: true } })
+  next()
+})
 
 productSchema.pre('findOne', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
+  this.find({ isDeleted: { $ne: true } })
+  next()
+})
 
- // [ {$match: { isDeleted : {  $ne: : true}}}   ,{ '$match': { id: '123456' } } ]
+// [ {$match: { isDeleted : {  $ne: : true}}}   ,{ '$match': { id: '123456' } } ]
 
 productSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
-  next();
-});
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } })
+  next()
+})
 // creating custom static method
 
-productSchema.statics.isUserExists = async function (name: string){
-    const existingProduct = await Product.findOne({name});
-    return existingProduct;
+productSchema.statics.isUserExists = async function (name: string) {
+  const existingProduct = await Product.findOne({ name })
+  return existingProduct
 }
 
+const Product = model<IProduct, ProductModel>('Product', productSchema)
 
-const Product = model<FProduct, ProductModel>('Product', productSchema)
-
-export default Product;
+export default Product
